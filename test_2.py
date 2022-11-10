@@ -33,7 +33,7 @@ class UntitledTestCase(unittest.TestCase):
         driver.find_element(By.NAME, "group_header").send_keys("rrrrrr")
         driver.find_element(By.NAME, "group_footer").click()
         driver.find_element(By.NAME, "group_footer").clear()
-        driver.find_element(By.NAME, "group_footer").send_keys("lkgfdd")
+        driver.find_element(By.NAME, "group_footer").send_keys("l;okljkhkh")
         driver.find_element(By.NAME, "submit").click()
         driver.find_element(By.LINK_TEXT, "group page").click()
         driver.find_element(By.LINK_TEXT, "Logout").click()
