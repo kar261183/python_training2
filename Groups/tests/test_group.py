@@ -1,5 +1,5 @@
-from fixture.application import Application
-from model.group import Group
+from Groups.fixture.application import Application
+from Groups.model.group import Group
 import pytest
 
 
