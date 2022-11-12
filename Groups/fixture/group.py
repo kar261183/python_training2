@@ -25,6 +25,14 @@ class GroupHelper:
         driver.find_element(By.NAME, "submit").click()
         self.return_to_group_page()
 
+    def delete_first_group(self):
+        driver = self.app.driver
+        self.open_group_page()
+        driver.find_element(By.XPATH, "//*[@id='content']/form/span/input[@value='14']").click()
+        driver.find_element(By.NAME, "delete").click()
+        self.return_to_group_page()
+
+
     def return_to_group_page(self):
         driver = self.app.driver
         driver.find_element(By.LINK_TEXT, "group page").click()

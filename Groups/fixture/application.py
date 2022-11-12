@@ -2,7 +2,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
 from Groups.fixture.session import SessionHelper
-from Groups.fixture.groop import GroupHelper
+from Groups.fixture.group import GroupHelper
 
 
 class Application:
