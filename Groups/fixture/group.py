@@ -13,25 +13,42 @@ class GroupHelper:
         driver = self.app.driver
         self.open_group_page()
         driver.find_element(By.NAME, "new").click()
-        driver.find_element(By.NAME, "group_name").click()
-        driver.find_element(By.NAME, "group_name").clear()
-        driver.find_element(By.NAME, "group_name").send_keys(group.name)
-        driver.find_element(By.NAME, "group_header").click()
-        driver.find_element(By.NAME, "group_header").clear()
-        driver.find_element(By.NAME, "group_header").send_keys(group.header)
-        driver.find_element(By.NAME, "group_footer").click()
-        driver.find_element(By.NAME, "group_footer").clear()
-        driver.find_element(By.NAME, "group_footer").send_keys(group.footer)
+        self.fill_group_form(group)
         driver.find_element(By.NAME, "submit").click()
         self.return_to_group_page()
 
     def delete_first_group(self):
         driver = self.app.driver
         self.open_group_page()
-        driver.find_element(By.XPATH, "//*[@id='content']/form/span/input[@value='14']").click()
+        self.select_first_group()
         driver.find_element(By.NAME, "delete").click()
         self.return_to_group_page()
 
+    def modify_group(self, new_group_data):
+        driver = self.app.driver
+        self.open_group_page()
+        self.select_first_group()
+        driver.find_element(By.NAME, "edit").click()
+        self.fill_group_form(new_group_data)
+        driver.find_element(By.NAME, "update").click()
+        self.return_to_group_page()
+
+    def fill_group_form(self, group):
+        driver = self.app.driver
+        self.change_field_value("group_name", group.name)
+        self.change_field_value("group_header", group.header)
+        self.change_field_value("group_footer", group.footer)
+
+    def change_field_value(self, field_name, text):
+        driver = self.app.driver
+        if text is not None:
+            driver.find_element(By.NAME, field_name).click()
+            driver.find_element(By.NAME, field_name).clear()
+            driver.find_element(By.NAME, field_name).send_keys(text)
+
+    def select_first_group(self):
+        driver = self.app.driver
+        driver.find_element(By.XPATH, "//*[@id='content']/form/span[1]/input").click()
 
     def return_to_group_page(self):
         driver = self.app.driver
