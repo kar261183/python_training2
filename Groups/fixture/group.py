@@ -1,5 +1,7 @@
 from selenium.webdriver.common.by import By
 
+from Groups.model.group import Group
+
 
 class GroupHelper:
     def __init__(self, app):
@@ -7,7 +9,9 @@ class GroupHelper:
 
     def open_group_page(self):
         driver = self.app.driver
-        driver.find_element(By.LINK_TEXT, "groups").click()
+        if not (driver.current_url.endswith("/group.php")
+                and len(driver.find_elements(By.NAME, "new"))) > 0:
+            driver.find_element(By.LINK_TEXT, "groups").click()
 
     def create(self, group):
         driver = self.app.driver
@@ -58,3 +62,13 @@ class GroupHelper:
         driver = self.app.driver
         self.open_group_page()
         return len(driver.find_elements(By.XPATH, "//*[@id='content']/form/span[1]/input"))
+
+    def get_group_list(self):
+        driver = self.app.driver
+        self.open_group_page()
+        groups = []
+        for element in driver.find_elements(By.XPATH, '//*[@id="content"]/form/span'):
+            text = element.text
+            id = element.find_element(By.XPATH, "//*[@id='content']/form/span[1]/input").get_attribute("value")
+            groups.append(Group(name=text, id=id))
+        return groups
